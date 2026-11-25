@@ -1,0 +1,6 @@
+# Never commit plaintext player data. index.html at the repo root is the
+# encrypted page and IS committed; everything below is the material it is
+# built from and must stay out of a public repo.
+build/data.json
+build/raw_*.json
+build/PREVIEW*.html

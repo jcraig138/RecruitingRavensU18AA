@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ravens U18AA · Recruiting Board</title>
+<style>
+:root {
+  color-scheme: light dark;
+  --rv-gold: #F7CE46; --rv-black: #141414;
+  --bg:#f5f6f8; --panel:#ffffff; --surface-1:#fafafa; --surface-2:#f2f2f2;
+  --border:#e3e3e3; --border-soft:#eeeeee;
+  --text:#222222; --text-strong:#444444; --text-muted:#666666; --text-faint:#999999; --text-ph:#aaaaaa;
+  --ok:#1e7e34; --ok-bg:#e6f4ea; --bad:#b00020; --bad-bg:#fde2e1;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:#15171a; --panel:#1e2126; --surface-1:#242730; --surface-2:#2a2e36;
+    --border:#3a3f4a; --border-soft:#333843;
+    --text:#ececec; --text-strong:#d6d9de; --text-muted:#a8adb6; --text-faint:#80868f; --text-ph:#6b7078;
+    --ok:#7bdb9b; --ok-bg:#1d3324; --bad:#ff8a8a; --bad-bg:#3a1f22;
+  }
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; padding:14px; background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+.wrap { max-width:860px; margin:0 auto; }
+.brand {
+  display:flex; align-items:center; flex-wrap:wrap; gap:12px 14px;
+  background:var(--rv-black); border-radius:10px; border-bottom:4px solid var(--rv-gold);
+  padding:12px 16px; margin-bottom:12px; color:#fff;
+}
+.brand .chip { flex:none; background:#fff; border-radius:8px; padding:7px 10px; display:flex; align-items:center; }
+.brand .chip img { display:block; width:clamp(104px,24vw,148px); height:auto; }
+.brand .txt { flex:1; min-width:0; }
+.kicker { color:var(--rv-gold); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:2px; }
+.brand h1 { font-size:19px; margin:0; font-weight:700; color:#fff; }
+.brand p { color:#cfcfcf; margin:3px 0 0 0; font-size:12px; }
+
+.note {
+  background:var(--surface-1); border:1px solid var(--border); border-left:4px solid var(--rv-gold);
+  border-radius:8px; padding:10px 12px; margin-bottom:12px; font-size:14px; line-height:1.5; color:var(--text-strong);
+}
+.note b { color:var(--text); }
+
+.seg { display:inline-flex; border:1px solid var(--border); border-radius:7px; overflow:hidden; margin-bottom:8px; }
+.seg button {
+  border:none; cursor:pointer; padding:4px 14px; font-size:13px; font-weight:700; line-height:1.5;
+  background:var(--panel); color:var(--text-muted);
+}
+.seg button[aria-pressed="true"] { background:var(--rv-gold); color:var(--rv-black); }
+
+.card { border:1px solid var(--border); border-top:3px solid var(--rv-gold); border-radius:9px; overflow:hidden; }
+.row { display:grid; grid-template-columns:190px 0.5fr 0.8fr 0.5fr 1.4fr; gap:12px; align-items:center; padding:8px 12px; }
+.row > div { min-width:0; }
+.hdr { background:var(--surface-1); font-size:11px; text-transform:uppercase; color:var(--text-faint); font-weight:600; }
+.prow { border-top:1px solid var(--border-soft); cursor:pointer; font-size:15px; background:var(--panel); }
+.prow.open { background:var(--surface-1); }
+.caret { color:var(--text-faint); font-size:9px; }
+.np {
+  display:block; width:100%; box-sizing:border-box; background:var(--rv-gold); color:var(--rv-black);
+  font-weight:700; border-radius:6px; padding:3px 8px; font-size:12.5px; line-height:1.3;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.np-rest::before { content:"\00a0"; }
+.num { color:var(--text-faint); font-weight:700; font-size:13px; }
+.muted { color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+.detail { border-top:1px solid var(--border); background:var(--surface-1); padding:14px; }
+.dhead { color:var(--text-muted); font-size:13px; margin-bottom:10px; cursor:pointer; }
+.sec { font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:.03em; margin:12px 0 5px; }
+.bg { font-size:15px; line-height:1.55; margin:0; }
+.cols { display:grid; grid-template-columns:1fr 1fr; gap:4px 20px; }
+.pc h4 { margin:0 0 3px; font-size:13px; }
+.pc ul { margin:0; padding-left:17px; }
+.pc li { font-size:15px; margin-bottom:2px; line-height:1.45; }
+.pros h4 { color:var(--ok); } .cons h4 { color:var(--bad); }
+.empty { color:var(--text-faint); font-size:13px; font-style:italic; }
+.attr { margin-bottom:8px; }
+.attr .l { font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--text-faint); margin-bottom:1px; }
+.attr .v { font-size:15px; line-height:1.45; white-space:pre-wrap; }
+.attr .v.none { color:var(--text-ph); font-style:italic; }
+.rep { border:1px solid var(--border-soft); border-left:3px solid var(--rv-gold); border-radius:7px; padding:9px 11px; margin-bottom:6px; background:var(--panel); }
+.rep .who { font-size:12px; color:var(--text-muted); margin-bottom:5px; }
+.rep .who b { color:var(--text); }
+.vid { border:1px solid var(--border-soft); border-radius:7px; padding:8px 10px; margin-bottom:5px; background:var(--panel); }
+.vid a { font-size:14px; font-weight:600; color:var(--text); text-decoration:none; border-bottom:2px solid var(--rv-gold); }
+.vid .t { font-size:13px; color:var(--text-muted); margin-top:3px; white-space:pre-wrap; line-height:1.45; }
+.game { padding:5px 0; border-bottom:1px solid var(--border-soft); font-size:14px; }
+.foot { margin-top:16px; color:var(--text-faint); font-size:12px; line-height:1.5; }
+
+.tabs { display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:10px; }
+.tabs button {
+  border:none; background:none; cursor:pointer; padding:12px 14px; font-size:16px; font-weight:700;
+  color:var(--text-faint); border-bottom:3px solid transparent;
+}
+.tabs button[aria-selected="true"] { color:var(--rv-gold); border-bottom-color:var(--rv-gold); }
+.calhead { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.calhead button {
+  border:1px solid var(--border); background:var(--panel); color:var(--rv-gold);
+  border-radius:7px; padding:6px 14px; font-size:17px; cursor:pointer; line-height:1;
+}
+.calhead .lab { font-size:16px; font-weight:700; }
+.grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.dow { text-align:center; font-size:10px; color:var(--text-faint); font-weight:700; text-transform:uppercase; padding:3px 0; }
+.day { min-height:50px; border:1px solid var(--border-soft); border-radius:6px; padding:4px 2px; background:var(--panel); text-align:center; }
+.day.today { background:var(--surface-2); }
+.day.has { cursor:pointer; }
+.day.has .n { color:var(--text); font-weight:700; }
+.day.own { border-color:var(--rv-gold); }
+.day.sel { background:var(--surface-1); border-color:var(--rv-gold); box-shadow:inset 0 0 0 1px var(--rv-gold); }
+.day .n { font-size:13px; line-height:1.1; color:var(--text-ph); }
+.day.today .n { color:var(--rv-gold); font-weight:700; }
+.marks { display:flex; flex-wrap:wrap; gap:2px; justify-content:center; align-items:center; margin-top:3px; min-height:10px; }
+.marks .r { background:#141414; color:var(--rv-gold); border:1px solid var(--rv-gold); border-radius:3px; font-size:8px; font-weight:700; line-height:1; padding:1px 3px; }
+.marks .d { width:6px; height:6px; border-radius:50%; background:var(--rv-gold); display:inline-block; }
+.marks .more { font-size:8px; font-weight:700; color:var(--rv-gold); }
+.dayhead { display:flex; justify-content:space-between; align-items:center; gap:8px; margin:10px 0 6px 0; }
+.dayhead b { font-size:15px; }
+.dayhead button { border:1px solid var(--border); background:var(--panel); color:var(--rv-gold); border-radius:14px; padding:4px 11px; font-size:12px; font-weight:700; cursor:pointer; }
+.ev {
+  background:var(--rv-gold); color:var(--rv-black); border-radius:4px; padding:1px 3px; cursor:pointer;
+  font-size:10px; font-weight:600; margin-bottom:1px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+}
+.ev.own { background:#141414; color:var(--rv-gold); font-weight:700; border:1px solid #141414; box-sizing:border-box; }
+.ev.own.prac { background:transparent; border:1px dashed var(--rv-gold); font-weight:600; }
+.gm { cursor:pointer; }
+.gm.open { background:var(--surface-1); }
+.gm.own { font-weight:700; }
+.sameday { padding:5px 0; border-bottom:1px solid var(--border-soft); font-size:13px; }
+.sameday.own { font-weight:700; }
+.sameday .who { color:var(--text-muted); font-size:12px; font-weight:400; }
+.daylist { margin-top:12px; }
+.dl { border-top:1px solid var(--border-soft); padding:8px 2px; font-size:14px; line-height:1.5; }
+.dl b { display:block; font-size:13px; color:var(--text-muted); }
+
+@media (max-width:640px) {
+  body { padding:10px; }
+  .row { grid-template-columns:142px 0.42fr 0.42fr 0.36fr; gap:6px; padding:7px 8px; }
+  .row .team { display:none; }
+  .np { font-size:14px; padding:4px 8px; line-height:1.15; white-space:normal; }
+  .np-first, .np-rest { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .np-rest::before { content:none; }
+  .cols { grid-template-columns:1fr; }
+  .seg button { padding:4px 16px; font-size:14px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <div class="chip"><img src="__LOGO__" alt="Waterloo Ravens"></div>
+    <div class="txt">
+      <div class="kicker">OWHA U18AA</div>
+      <h1>2027-28 Recruiting Board</h1>
+      <p>Players of interest for next season. Updated __BUILT__.</p>
+    </div>
+  </div>
+
+  <div class="note">
+    <b>Read-only.</b> Tap a name to open her profile. Most evaluation fields are still blank on purpose &mdash;
+    that is what we want your eyes for. Send anything you see to James by text or email and he will add it.
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button data-tab="players" aria-selected="true">Players</button>
+    <button data-tab="calendar" aria-selected="false">Calendar</button>
+  </div>
+
+  <div id="view-players">
+    <div class="seg" id="seg">
+      <button data-pos="all" aria-pressed="true">All</button>
+      <button data-pos="F" aria-pressed="false">F</button>
+      <button data-pos="D" aria-pressed="false">D</button>
+      <button data-pos="G" aria-pressed="false">G</button>
+    </div>
+    <div class="card" id="list"></div>
+  </div>
+
+  <div id="view-calendar" style="display:none;">
+    <div class="calhead">
+      <button id="cal-prev" aria-label="Previous month">&lsaquo;</button>
+      <div class="lab" id="cal-label"></div>
+      <button id="cal-next" aria-label="Next month">&rsaquo;</button>
+    </div>
+    <div class="card" style="border-top-width:3px;padding:8px;">
+      <div class="grid" id="cal-grid"></div>
+    </div>
+    <div class="daylist" id="cal-list"></div>
+  </div>
+
+  <div class="foot">
+    Built __BUILT__ from the Ravens recruiting dashboard. Contact details for the players and their families
+    are deliberately not included on this page. Please keep this link and password within the coaching staff.
+  </div>
+</div>
+
+<script>
+const DATA = __DATA__;
+
+const SKATER = [["skating","Skating"],["shooting_release","Shooting / release"],["hockey_iq","Hockey IQ"],["compete_level","Compete level"],["off_ice_character","Character / coachability"]];
+const GOALIE = [["skating","Skating"],["lateral_movement","Lateral movement"],["recovery","Recovery"],["tracking","Tracking"],["puck_handling","Puck handling"],["rebound_control","Rebound control"],["off_ice_character","Character / coachability"]];
+
+let filter = "all", openId = null;
+
+const esc = s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const isG = p => (p.positions || []).indexOf("Goalie") >= 0;
+const posShort = ps => (ps || []).map(x => /goal/i.test(x) ? "G" : /def/i.test(x) ? "D" : /forw/i.test(x) ? "F" : x[0]).join("/");
+
+function pill(name) {
+  const n = String(name || "").trim(), i = n.indexOf(" ");
+  const a = i > 0 ? n.slice(0, i) : n, b = i > 0 ? n.slice(i + 1) : "";
+  return '<span class="np"><span class="np-first">' + esc(a) + '</span>' + (b ? '<span class="np-rest">' + esc(b) + '</span>' : '') + '</span>';
+}
+function fmtDate(d) {
+  const p = String(d).split("-");
+  if (p.length !== 3) return d;
+  return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString(undefined, { weekday:"short", month:"short", day:"numeric" });
+}
+// Teams match on centre + division, so spelling of the club name does not
+// matter: "Waterloo U18A" and "Waterloo Ravens U18A" are the same team, while
+// U15AA and U18A in the same centre stay separate.
+function teamKey(t) {
+  const s = String(t == null ? "" : t).toLowerCase()
+    .replace(/\(.*?\)/g, " ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+  const m = s.match(/\bu\s?(\d{1,2})\s?(a{1,3}|b{1,2}|c)?\b/);
+  if (!m) return s;
+  const div = "u" + m[1] + (m[2] || "");
+  const parts = s.split(" ");
+  let centre = parts[0] || "";
+  if (/^(north|south|east|west|new|st|saint|port|fort|upper|lower|niagara)$/.test(centre) && parts[1]) {
+    centre += " " + parts[1];
+  }
+  return centre + "|" + div;
+}
+const sameTeam = (a, b) => { const k = teamKey(a); return !!k && k === teamKey(b); };
+
+function gamesFor(team) {
+  const today = new Date().toISOString().slice(0, 10);
+  return DATA.games.filter(g => sameTeam(g.team, team) && g.date >= today)
+    .sort((a, b) => a.date === b.date ? String(a.time).localeCompare(b.time) : (a.date < b.date ? -1 : 1));
+}
+function attr(label, val) {
+  const has = val != null && String(val).trim() !== "" && !/^not yet assessed$/i.test(val);
+  return '<div class="attr"><div class="l">' + esc(label) + '</div>'
+    + '<div class="v' + (has ? '' : ' none') + '">' + (has ? esc(val) : "Not assessed yet &mdash; your call") + '</div></div>';
+}
+function bullets(items, empty) {
+  if (!items || !items.length) return '<div class="empty">' + esc(empty) + '</div>';
+  return '<ul>' + items.map(v => '<li>' + esc(v) + '</li>').join("") + '</ul>';
+}
+
+function detail(p) {
+  const fields = isG(p) ? GOALIE : SKATER;
+  const games = gamesFor(p.current_team);
+  const vids = (p.video_links || []).slice();
+  if (p.instagram) vids.push({ label: "Instagram @" + p.instagram, url: "https://instagram.com/" + p.instagram, note: "She posts game footage here." });
+
+  let h = '<div class="detail">';
+  h += '<div class="dhead" data-collapse="1">'
+     + (p.jersey_number ? "#" + esc(p.jersey_number) + " &middot; " : "")
+     + esc((p.positions || []).join(", ")) + ' &middot; ' + esc(p.current_team)
+     + (p.shoots ? ' &middot; Shoots ' + esc(p.shoots) : '')
+     + (p.birth_year ? ' &middot; ' + esc(p.birth_year) : '')
+     + ' &middot; <span style="border-bottom:1px dotted currentColor;">tap to close</span></div>';
+
+  if (p.background) h += '<div class="sec">Background</div><p class="bg">' + esc(p.background) + '</p>';
+
+  h += '<div class="sec">Pros &amp; cons</div><div class="cols">'
+     + '<div class="pc pros"><h4>+ Pros</h4>' + bullets(p.pros, "Nothing logged yet.") + '</div>'
+     + '<div class="pc cons"><h4>&minus; Cons</h4>' + bullets(p.cons, "Nothing logged yet.") + '</div></div>';
+
+  const reports = (p.coach_reports || []).slice().sort((a, b) => (a.at || "") < (b.at || "") ? 1 : -1);
+  if (reports.length) {
+    h += '<div class="sec">Coach reports</div>';
+    h += reports.map(r => '<div class="rep">'
+      + '<div class="who"><b>' + esc(r.by || "Coach") + '</b> &middot; ' + esc(fmtDate(r.at))
+      + (r.source ? ' &middot; ' + esc(r.source) : '') + '</div>'
+      + bullets(r.points, "No points logged.") + '</div>').join("");
+  }
+
+  h += '<div class="sec">' + (isG(p) ? "Goalie evaluation" : "Scouting") + '</div><div class="cols">'
+     + fields.map(f => attr(f[1], (p.fields || {})[f[0]])).join("") + '</div>';
+
+  if (vids.length) {
+    h += '<div class="sec">Video</div>';
+    h += vids.map(v => '<div class="vid"><a href="' + esc(v.url) + '" target="_blank" rel="noopener">&#9654; ' + esc(v.label || v.url) + '</a>'
+      + (v.note ? '<div class="t">' + esc(v.note) + '</div>' : '') + '</div>').join("");
+  }
+
+  h += '<div class="sec">Next games</div>';
+  h += games.length
+    ? games.slice(0, 5).map(g => '<div class="game">' + esc(fmtDate(g.date)) + (g.time ? " " + esc(g.time) : "")
+        + " &mdash; " + (g.home_away === "home" ? "vs " : "@ ") + esc(g.opponent)
+        + (g.location ? " (" + esc(g.location) + ")" : "") + '</div>').join("")
+    : '<div class="empty">No schedule loaded for this team.</div>';
+
+  return h + '</div>';
+}
+
+function render() {
+  const rows = DATA.players
+    .filter(p => filter === "all" || posShort(p.positions).split("/").indexOf(filter) >= 0)
+    .sort((a, b) => String(a.name).localeCompare(String(b.name)));
+
+  let h = '<div class="row hdr"><div>Name</div><div>#</div><div>Pos</div><div>Sh</div><div class="team">Team</div></div>';
+  if (!rows.length) h += '<div style="padding:12px;color:var(--text-faint);font-size:14px;">No players at that position.</div>';
+
+  rows.forEach(p => {
+    const open = openId === p.id;
+    h += '<div class="row prow' + (open ? ' open' : '') + '" data-id="' + esc(p.id) + '">'
+       + '<div style="display:flex;align-items:center;gap:4px;"><span class="caret">' + (open ? "&#9662;" : "&#9656;") + '</span>'
+       + '<span style="flex:1 1 auto;min-width:0;">' + pill(p.name) + '</span></div>'
+       + '<div class="num">' + (p.jersey_number ? "#" + esc(p.jersey_number) : "&ndash;") + '</div>'
+       + '<div>' + esc(posShort(p.positions)) + '</div>'
+       + '<div>' + (p.shoots ? esc(p.shoots) : "&ndash;") + '</div>'
+       + '<div class="team muted">' + esc(p.current_team) + '</div>'
+       + '</div>';
+    if (open) h += detail(p);
+  });
+
+  const list = document.getElementById("list");
+  list.innerHTML = h;
+  list.querySelectorAll(".prow").forEach(el => el.addEventListener("click", () => {
+    openId = openId === el.dataset.id ? null : el.dataset.id;
+    render();
+  }));
+  list.querySelectorAll("[data-collapse]").forEach(el => el.addEventListener("click", e => {
+    e.stopPropagation(); openId = null; render();
+  }));
+}
+
+// ---------- Calendar ----------
+const today = new Date();
+let calY = today.getFullYear(), calM = today.getMonth(), openGame = null, selDay = null;
+const teamShort = t => String(t || "").split(" ")[0];
+const gameKey = g => g.date + "|" + (g.time || "") + "|" + g.team;
+
+function renderCal() {
+  const label = new Date(calY, calM, 1).toLocaleDateString(undefined, { month:"long", year:"numeric" });
+  document.getElementById("cal-label").textContent = label;
+
+  const first = new Date(calY, calM, 1).getDay();
+  const days = new Date(calY, calM + 1, 0).getDate();
+  const todayStr = new Date(today.getTime() - today.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
+  const byDate = {};
+  DATA.games.forEach(g => { (byDate[g.date] = byDate[g.date] || []).push(g); });
+  // Ravens entries first in each day: they are the fixed points everything
+  // else has to be planned around.
+  const dayOrder = (x, y) => (!!x.own_team !== !!y.own_team)
+    ? (x.own_team ? -1 : 1)
+    : String(x.time).localeCompare(y.time);
+  Object.values(byDate).forEach(a => a.sort(dayOrder));
+
+  let h = ["S","M","T","W","T","F","S"].map(d => '<div class="dow">' + d + '</div>').join("");
+  for (let i = 0; i < first; i++) h += "<div></div>";
+  for (let d = 1; d <= days; d++) {
+    const ds = calY + "-" + String(calM + 1).padStart(2, "0") + "-" + String(d).padStart(2, "0");
+    const evs = byDate[ds] || [];
+    // The cell is a button carrying markers only. There is no room on a phone
+    // to render game text in a grid square, so tapping a day opens the list.
+    const own = evs.some(g => g.own_team);
+    const scouts = evs.filter(g => !g.own_team).length;
+    const cls = ["day", ds === todayStr ? "today" : "", evs.length ? "has" : "",
+                 own ? "own" : "", ds === selDay ? "sel" : ""].filter(Boolean).join(" ");
+    h += '<div class="' + cls + '" data-date="' + ds + '"><div class="n">' + d + '</div>'
+       + '<div class="marks">'
+       + (own ? '<span class="r">R</span>' : "")
+       + '<span class="d"></span>'.repeat(Math.min(scouts, 5))
+       + (scouts > 5 ? '<span class="more">+' + (scouts - 5) + '</span>' : "")
+       + '</div></div>';
+  }
+  document.getElementById("cal-grid").innerHTML = h;
+
+  const month = DATA.games
+    .filter(g => selDay
+      ? g.date === selDay
+      : g.date.slice(0, 7) === calY + "-" + String(calM + 1).padStart(2, "0"))
+    .sort((a, b) => a.date === b.date ? dayOrder(a, b) : (a.date < b.date ? -1 : 1));
+
+  document.getElementById("cal-list").innerHTML = (selDay
+      ? '<div class="dayhead"><b>' + esc(fmtDate(selDay)) + '</b>'
+        + '<button id="cal-all">Show whole month</button></div>'
+      : "")
+    + (month.length
+    ? month.map(g => {
+        const k = gameKey(g), open = openGame === k;
+        let r = '<div class="dl gm' + (open ? ' open' : '') + (g.own_team ? ' own' : '') + '" data-gk="' + esc(k) + '">'
+          + '<b>' + esc(fmtDate(g.date)) + (g.time ? " &middot; " + esc(g.time) : "") + '</b>'
+          + '<span class="caret" style="margin-right:4px;">' + (open ? "&#9662;" : "&#9656;") + '</span>'
+          + esc(g.team) + " " + (g.kind === "practice" ? "practice" : (g.home_away === "home" ? "vs " : "@ ") + esc(g.opponent))
+          + (g.location ? '<div style="color:var(--text-muted);font-size:13px;">' + esc(g.location) + '</div>' : '')
+          + '</div>';
+        if (open) r += gameDetail(g);
+        return r;
+      }).join("")
+    : '<div class="dl" style="color:var(--text-faint);font-style:italic;">No games loaded for this month.</div>');
+
+  document.querySelectorAll(".gm").forEach(el => el.addEventListener("click", () => {
+    openGame = openGame === el.dataset.gk ? null : el.dataset.gk;
+    renderCal();
+  }));
+  document.querySelectorAll(".day.has").forEach(el => el.addEventListener("click", () => {
+    selDay = selDay === el.dataset.date ? null : el.dataset.date;
+    openGame = null;
+    renderCal();
+    const list = document.getElementById("cal-list");
+    if (selDay && list) list.scrollIntoView({ behavior: "smooth", block: "start" });
+  }));
+  const all = document.getElementById("cal-all");
+  if (all) all.addEventListener("click", ev => { ev.stopPropagation(); selDay = null; renderCal(); });
+}
+
+function gameDetail(g) {
+  const watching = DATA.players.filter(p => sameTeam(p.current_team, g.team));
+  const prac = g.kind === "practice";
+  let h = '<div style="border-left:3px solid var(--rv-gold);margin:0 0 10px 6px;padding:8px 0 4px 12px;">';
+  h += '<div style="font-size:16px;font-weight:700;margin-bottom:2px;">'
+     + esc(g.team) + '<br>' + (prac ? "Practice" : (g.home_away === "home" ? "vs " : "@ ") + esc(g.opponent)) + '</div>';
+  h += '<div style="color:var(--text-muted);font-size:13px;margin-bottom:8px;">'
+     + (prac ? "Practice" : (g.home_away === "home" ? "Home" : "Away")) + (g.location ? " &middot; " + esc(g.location) : "")
+     + (g.time ? " &middot; " + esc(g.time) : "") + '</div>';
+  if (!g.own_team) {
+    h += '<div class="sec" style="margin-top:0;">Watching in this game</div>';
+    h += watching.length
+      ? watching.map(p => '<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;">'
+          + '<span style="max-width:150px;">' + pill(p.name) + '</span>'
+          + '<span style="color:var(--text-muted);font-size:14px;">'
+          + (p.jersey_number ? "#" + esc(p.jersey_number) + " &middot; " : "")
+          + esc(posShort(p.positions)) + (p.shoots ? " &middot; shoots " + esc(p.shoots) : "")
+          + '</span></div>').join("")
+      : '<div class="empty">No tracked players on this team.</div>';
+  }
+  // When a single day is already on screen, the same-day list would just
+  // repeat what is directly above it.
+  if (!selDay) h += sameDay(g);
+  return h + '</div>';
+}
+
+// Everything else on the same date, Ravens commitments first, so a game can be
+// judged against what it clashes with before anyone commits to driving to it.
+function sameDay(g) {
+  const others = DATA.games
+    .filter(x => x.date === g.date && gameKey(x) !== gameKey(g))
+    .sort((a, b) => (!!a.own_team !== !!b.own_team)
+      ? (a.own_team ? -1 : 1)
+      : String(a.time).localeCompare(b.time));
+  if (!others.length) return '<div class="empty" style="margin-top:10px;">Nothing else on this day.</div>';
+  return '<div class="sec">Also on ' + esc(fmtDate(g.date)) + '</div>'
+    + others.map(x => {
+        const who = DATA.players.filter(p => sameTeam(p.current_team, x.team))
+          .map(p => String(p.name || "").split(" ")[0]).join(", ");
+        const line = x.own_team
+          ? "Ravens " + (x.kind === "practice" ? "practice" : (x.home_away === "home" ? "vs " : "@ ") + esc(x.opponent))
+          : esc(x.team) + " " + (x.home_away === "home" ? "vs " : "@ ") + esc(x.opponent);
+        return '<div class="sameday' + (x.own_team ? ' own' : '') + '">'
+          + (x.time ? esc(x.time) + " &middot; " : "") + line
+          + (x.location ? ' <span style="color:var(--text-faint);">(' + esc(x.location) + ')</span>' : '')
+          + (who ? '<div class="who">' + esc(who) + '</div>' : '')
+          + '</div>';
+      }).join("");
+}
+
+document.getElementById("cal-prev").addEventListener("click", () => {
+  if (--calM < 0) { calM = 11; calY--; } selDay = null; openGame = null; renderCal();
+});
+document.getElementById("cal-next").addEventListener("click", () => {
+  if (++calM > 11) { calM = 0; calY++; } selDay = null; openGame = null; renderCal();
+});
+
+document.getElementById("tabs").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  const tab = b.dataset.tab;
+  document.querySelectorAll("#tabs button").forEach(x => x.setAttribute("aria-selected", String(x === b)));
+  document.getElementById("view-players").style.display = tab === "players" ? "block" : "none";
+  document.getElementById("view-calendar").style.display = tab === "calendar" ? "block" : "none";
+  if (tab === "calendar") renderCal();
+});
+
+document.getElementById("seg").addEventListener("click", e => {
+  const b = e.target.closest("button");
+  if (!b) return;
+  filter = b.dataset.pos;
+  document.querySelectorAll("#seg button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
